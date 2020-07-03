@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route,Switch} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { fetchPosts } from '../actions/posts';
-import PostList from './PostList';
+import Home from './Home';
+import Page404 from './Page404';
 import Nav from './Nav';
 
 const signup = () => {
@@ -26,11 +27,15 @@ class App extends React.Component {
         <div>
           {/*Navbar */}
           <Nav />
+          
+          <Switch>
+          {/*Routes*/}
+          <Route exact path='/' render={(props)=>{return(<Home {...props} posts={posts}/>)}}/>
           <Route path="/login" component={login} />
           <Route path="/signup" component={signup} />
+          <Route  component={Page404} />
+          </Switch>
 
-          {/*posts  list*/}
-          <PostList posts={posts} />
         </div>
       </Router>
     );
