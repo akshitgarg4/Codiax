@@ -3,14 +3,26 @@ import React, { Component } from 'react';
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.emailInputRef = React.createRef();
-    this.passwordInputRef = React.createRef();
+    this.state={
+        email:'',
+        password:''
+    }
   }
   handleSubmitForm = (e) => {
     e.preventDefault();
-    console.log(this.passwordInputRef);
-    console.log(this.emailInputRef);
+    console.log(this.state);
+    
   };
+  handleEmail =(e)=>{
+      this.setState({
+          email:e.target.value
+      })
+  }
+  handlePassword =(e)=>{
+    this.setState({
+        password:e.target.value
+    })
+}
   render() {
     return (
       <form className="login-form">
@@ -20,7 +32,7 @@ class Login extends Component {
             type="email"
             placeholder="Email"
             required
-            ref={this.emailInputRef}
+            onChange={this.handleEmail}
           />
         </div>
         <div className="field">
@@ -28,7 +40,7 @@ class Login extends Component {
             type="password"
             placeholder="password"
             required
-            ref={this.passwordInputRef}
+            onChange={this.handlePassword}
           />
         </div>
         <div className="field">
