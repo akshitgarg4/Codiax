@@ -9,13 +9,19 @@ import Nav from './Nav';
 import Login from './Login';
 import SignUp from './Signup';
 import * as jwtDecode from 'jwt-decode';
+import { authenticateUser } from '../actions/auth';
 
 class App extends React.Component {
   componentDidMount() {
     this.props.dispatch(fetchPosts());
     const token = localStorage.getItem('token');
     const user = jwtDecode(token);
-    console.log('user', user);
+    //console.log('user', user);
+    this.props.dispatch(authenticateUser({
+      email: user.email,
+      _id: user._id,
+      name: user.name,
+    }));
   }
 
   render() {
