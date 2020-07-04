@@ -8,10 +8,14 @@ import Page404 from './Page404';
 import Nav from './Nav';
 import Login from './Login';
 import SignUp from './Signup';
+import * as jwtDecode from 'jwt-decode';
 
 class App extends React.Component {
   componentDidMount() {
     this.props.dispatch(fetchPosts());
+    const token = localStorage.getItem('token');
+    const user = jwtDecode(token);
+    console.log('user', user);
   }
 
   render() {
