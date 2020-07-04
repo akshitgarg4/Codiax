@@ -15,17 +15,21 @@ class App extends React.Component {
   componentDidMount() {
     this.props.dispatch(fetchPosts());
     const token = localStorage.getItem('token');
-    const user = jwtDecode(token);
-    //console.log('user', user);
-    this.props.dispatch(authenticateUser({
-      email: user.email,
-      _id: user._id,
-      name: user.name,
-    }));
+    if (token) {
+      const user = jwtDecode(token);
+      //console.log('user', user);
+      this.props.dispatch(
+        authenticateUser({
+          email: user.email,
+          _id: user._id,
+          name: user.name,
+        })
+      );
+    }
   }
 
   render() {
-    const { posts } = this.props;
+    const { posts,auth } = this.props;
     console.log(this.props);
 
     return (
@@ -40,7 +44,9 @@ class App extends React.Component {
               exact
               path="/"
               render={(props) => {
-                return <Home {...props} posts={posts} />;
+                return (
+                  <Home {...props} posts={posts} isLoggedIn={auth.isLoggedIn} />
+                );
               }}
             />
             <Route path="/login" component={Login} />
@@ -56,6 +62,7 @@ class App extends React.Component {
 function mapStateToProps(state) {
   return {
     posts: state.posts,
+    auth: state.auth,
   };
 }
 App.propTypes = {

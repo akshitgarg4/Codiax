@@ -7,6 +7,7 @@ const {
   SIGNUP_FAILURE,
   AUTHENTICATE_USER,
   LOG_OUT,
+  CLEAR_AUTH_STATE
 } = require('../actions/actionTypes');
 
 const initialAuthState = {
@@ -18,6 +19,11 @@ const initialAuthState = {
 
 export default function auth(state = initialAuthState, action) {
   switch (action.type) {
+    case CLEAR_AUTH_STATE:
+      return {
+        ...state,
+        error:null
+      }
 
     case LOGIN_START:
     case SIGNUP_START:
