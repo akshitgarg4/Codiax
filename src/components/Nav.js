@@ -50,11 +50,13 @@ class Nav extends React.Component {
           <div className="right-nav">
             {auth.isLoggedIn && (
               <div className="user">
-                <img
-                  src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
-                  alt="user-dp"
-                  id="user-dp"
-                />
+                <Link to="/settings">
+                  <img
+                    src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
+                    alt="user-dp"
+                    id="user-dp"
+                  />
+                </Link>
                 <span>{auth.user.name}</span>
               </div>
             )}

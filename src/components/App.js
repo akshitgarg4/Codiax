@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
+
 import PropTypes from 'prop-types';
 import { fetchPosts } from '../actions/posts';
 import Home from './Home';
@@ -11,10 +13,24 @@ import SignUp from './Signup';
 import * as jwtDecode from 'jwt-decode';
 import { authenticateUser } from '../actions/auth';
 
+
+
+const settings =() => <div><h1>Settings</h1> </div>
+  
+//creating own private routes
+const PrivateRoute = (privateProps) =>{
+  const {isLoggedIn,path,component:Component} = privateProps;
+  return(
+    <Route path={path} render={(props)=>{
+      return isLoggedIn ? <Component {...props} /> : <Redirect to='/login'/>
+    }}/>
+  );
+};
 class App extends React.Component {
   componentDidMount() {
     this.props.dispatch(fetchPosts());
     const token = localStorage.getItem('token');
+
     if (token) {
       const user = jwtDecode(token);
       //console.log('user', user);
@@ -27,6 +43,8 @@ class App extends React.Component {
       );
     }
   }
+
+  
 
   render() {
     const { posts,auth } = this.props;
@@ -51,6 +69,7 @@ class App extends React.Component {
             />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={SignUp} />
+            <PrivateRoute path='/settings' component={settings}  isLoggedIn={auth.isLoggedIn} />
             <Route component={Page404} />
           </Switch>
         </div>
