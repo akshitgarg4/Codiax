@@ -7,7 +7,7 @@ import Home from './Home';
 import Page404 from './Page404';
 import Nav from './Nav';
 import Login from './Login';
-import SignUp from './SignUp';
+import SignUp from './Signup';
 
 class App extends React.Component {
   componentDidMount() {

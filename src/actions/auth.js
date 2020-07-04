@@ -1,5 +1,15 @@
-import { LOGIN_START, LOGIN_FAILURE, LOGIN_SUCCESS } from './actionTypes';
+import {
+  LOGIN_START,
+  LOGIN_FAILURE,
+  LOGIN_SUCCESS,
+  SIGNUP_START,
+  SIGNUP_FAILURE,
+  SIGNUP_SUCCESS,
+  AUTHENTICATE_USER,
+  LOG_OUT,
+} from './actionTypes';
 
+//login
 export function startLogin() {
   return {
     type: LOGIN_START,
@@ -19,6 +29,7 @@ export function loginSuccess(user) {
     user: user,
   };
 }
+
 function getFormBody(params) {
   let FormBody = [];
   for (let property in params) {
@@ -49,5 +60,68 @@ export function login(email, password) {
         }
         dispatch(loginFailed(data.message));
       });
+  };
+}
+
+//signup
+export function startsignup() {
+  return {
+    type: SIGNUP_START,
+  };
+}
+export function signupFailed(errormsg) {
+  return {
+    type: SIGNUP_FAILURE,
+    error: errormsg,
+  };
+}
+export function signupSuccess(user) {
+  return {
+    type: SIGNUP_SUCCESS,
+    user: user,
+  };
+}
+
+export function signup(email, password, confirmpassword, name) {
+  return (dispatch) => {
+    dispatch(startsignup());
+    const url = 'http://codeial.com:8000/api/v2/users/signup';
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: getFormBody({
+        email,
+        password,
+        confirm_password: confirmpassword,
+        name,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.success) {
+          console.log('token',data.data.token);
+          //localStorage.setItem('token', data.data.token);
+          dispatch(signupSuccess(data.data.user));
+          return;
+        }
+        dispatch(signupFailed(data.message));
+      });
+  };
+}
+
+//authenticate and logout
+export function authenticateUser(user) {
+  return {
+    type: AUTHENTICATE_USER,
+    user: user,
+  };
+}
+
+export function logoutUser() {
+  return {
+    type: LOG_OUT,
   };
 }
