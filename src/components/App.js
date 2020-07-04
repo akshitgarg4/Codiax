@@ -8,6 +8,7 @@ import { fetchPosts } from '../actions/posts';
 import Home from './Home';
 import Page404 from './Page404';
 import Nav from './Nav';
+import settings from './Settings';
 import Login from './Login';
 import SignUp from './Signup';
 import * as jwtDecode from 'jwt-decode';
@@ -15,7 +16,6 @@ import { authenticateUser } from '../actions/auth';
 
 
 
-const settings =() => <div><h1>Settings</h1> </div>
   
 //creating own private routes
 const PrivateRoute = (privateProps) =>{
@@ -27,6 +27,8 @@ const PrivateRoute = (privateProps) =>{
   );
 };
 class App extends React.Component {
+
+  
   componentDidMount() {
     this.props.dispatch(fetchPosts());
     const token = localStorage.getItem('token');
