@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { editUser, clearAuth } from '../actions/auth';
 
 class Settings extends Component {
   constructor(props) {
@@ -17,8 +18,19 @@ class Settings extends Component {
       [fieldName]: val,
     });
   };
-  render() {
+
+  handleSave = () => {
+    const { password, confirmPassword, name } = this.state;
     const { user } = this.props.auth;
+
+    this.props.dispatch(editUser(name, password, confirmPassword, user._id));
+  };
+
+  componentWillUnmount() {
+    this.props.dispatch(clearAuth());
+  }
+  render() {
+    const { user, error } = this.props.auth;
     const { editMode } = this.state;
     return (
       <div className="settings">
@@ -29,13 +41,19 @@ class Settings extends Component {
           />
         </div>
 
+        {error && <div className="alert error-dailog">{error}</div>}
+        {error === false && (
+          <div className="alert success-dailog">
+            Successfully updated profile!
+          </div>
+        )}
         <div className="field">
-          <div classname="field-label">Email</div>
-          <div classname="field-value">{user.email}</div>
+          <div className="field-label">Email</div>
+          <div className="field-value">{user.email}</div>
         </div>
 
         <div className="field">
-          <div classname="field-label">Name</div>
+          <div className="field-label">Name</div>
           {editMode ? (
             <input
               type="text"
@@ -43,13 +61,13 @@ class Settings extends Component {
               value={this.state.name}
             />
           ) : (
-            <div classname="field-value">{user.name}</div>
+            <div className="field-value">{user.name}</div>
           )}
         </div>
 
         {editMode && (
           <div className="field">
-            <div classname="field-label">New password</div>
+            <div className="field-label">New password</div>
 
             <input
               type="password"
@@ -61,7 +79,7 @@ class Settings extends Component {
 
         {editMode && (
           <div className="field">
-            <div classname="field-label">Confirm password</div>
+            <div className="field-label">Confirm password</div>
 
             <input
               type="password"
@@ -75,7 +93,9 @@ class Settings extends Component {
 
         <div className="btn-grp">
           {editMode ? (
-            <button className="button save-btn">Save</button>
+            <button className="button save-btn" onClick={this.handleSave}>
+              Save
+            </button>
           ) : (
             <button
               className="button edit-btn"

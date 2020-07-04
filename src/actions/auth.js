@@ -8,7 +8,8 @@ import {
   AUTHENTICATE_USER,
   LOG_OUT,
   CLEAR_AUTH_STATE,
-  EDIT_USER_SUCCESSFUL
+  EDIT_USER_SUCCESSFUL,
+  EDIT_USER_FAILED
 } from './actionTypes';
 
 //login
@@ -144,7 +145,7 @@ export function editUserSuccessful(user) {
 
 export function editUserFailed(error) {
   return {
-    type: EDIT_USER_SUCCESSFUL,
+    type: EDIT_USER_FAILED,
     error,
   };
 }

@@ -7,7 +7,9 @@ const {
   SIGNUP_FAILURE,
   AUTHENTICATE_USER,
   LOG_OUT,
-  CLEAR_AUTH_STATE
+  CLEAR_AUTH_STATE,
+  EDIT_USER_SUCCESSFUL,
+  EDIT_USER_FAILED,
 } = require('../actions/actionTypes');
 
 const initialAuthState = {
@@ -22,8 +24,8 @@ export default function auth(state = initialAuthState, action) {
     case CLEAR_AUTH_STATE:
       return {
         ...state,
-        error:null
-      }
+        error: null,
+      };
 
     case LOGIN_START:
     case SIGNUP_START:
@@ -50,15 +52,26 @@ export default function auth(state = initialAuthState, action) {
     case AUTHENTICATE_USER:
       return {
         ...state,
-        user:action.user,
-        isLoggedIn:true,
-      }
+        user: action.user,
+        isLoggedIn: true,
+      };
     case LOG_OUT:
       return {
         ...state,
-        user:{},
-        isLoggedIn:false,
-      }
+        user: {},
+        isLoggedIn: false,
+      };
+    case EDIT_USER_SUCCESSFUL:
+      return {
+        ...state,
+        user: action.user,
+        error: false,
+      };
+    case EDIT_USER_FAILED:
+      return {
+        ...state,
+        error: action.error,
+      };
     default:
       return state;
   }
