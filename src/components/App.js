@@ -13,6 +13,7 @@ import UserProfile from './UserProfile';
 import Login from './Login';
 import SignUp from './Signup';
 import * as jwtDecode from 'jwt-decode';
+import { fetchUserFriends } from '../actions/friends';
 import { authenticateUser } from '../actions/auth';
 
 //creating own private routes
@@ -42,11 +43,13 @@ class App extends React.Component {
           name: user.name,
         })
       );
+      //fetch user friends list
+      this.props.dispatch(fetchUserFriends());
     }
   }
 
   render() {
-    const { posts, auth } = this.props;
+    const { posts, auth,friends } = this.props;
     console.log(this.props);
 
     return (
@@ -62,7 +65,7 @@ class App extends React.Component {
               path="/"
               render={(props) => {
                 return (
-                  <Home {...props} posts={posts} isLoggedIn={auth.isLoggedIn} />
+                  <Home {...props} posts={posts} isLoggedIn={auth.isLoggedIn} friends={friends} />
                 );
               }}
             />
@@ -89,6 +92,7 @@ function mapStateToProps(state) {
   return {
     posts: state.posts,
     auth: state.auth,
+    friends:state.friends
   };
 }
 App.propTypes = {
