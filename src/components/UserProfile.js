@@ -12,6 +12,17 @@ class UserProfile extends Component {
       this.props.dispatch(fetchUserProfile(match.params.userId));
     }
   }
+  checkIfUserIsAFriend = () => {
+    const { match } = this.props;
+    const { friends } = this.props;
+    const userId = match.params.userId;
+    const array = friends.map((friend) => friend.to_user._id);
+    const index = array.indexOf(userId);
+    if (index !== -1) {
+      return true;
+    }
+    return false;
+  };
 
   render() {
     const {
@@ -20,6 +31,7 @@ class UserProfile extends Component {
     } = this.props;
     console.log('this.props', params);
     const user = this.props.profile.user;
+    const userFriend = this.checkIfUserIsAFriend();
 
     if (!isLoggedIn) {
       return <Redirect to="/login" />;
@@ -47,7 +59,12 @@ class UserProfile extends Component {
         </div>
 
         <div className="btn-grp">
-          <button className="button save-btn">Add Friend</button>
+          {userFriend && (
+            <button className="button save-btn">Remove Friend</button>
+          )}
+          {!userFriend && (
+            <button className="button save-btn">Add Friend</button>
+          )}
         </div>
       </div>
     );
@@ -57,6 +74,7 @@ class UserProfile extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profile,
+    friends: state.friends,
   };
 }
 export default connect(mapStateToProps)(UserProfile);
