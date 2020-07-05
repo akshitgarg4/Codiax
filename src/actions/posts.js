@@ -1,4 +1,4 @@
-import { UPDATE_POSTS,ADD_POST } from './actionTypes';
+import { UPDATE_POSTS, ADD_POST, ADD_COMMENT } from './actionTypes';
 export function fetchPosts() {
   return (dispatch) => {
     const url = 'http://codeial.com:8000/api/v2/posts?page=1&limit=25';
@@ -37,19 +37,17 @@ function getFormBody(params) {
   return FormBody.join('&');
 }
 
-
 export function createPost(content) {
   return (dispatch) => {
-    const url ='http://codeial.com:8000/api/v2/posts/create';
+    const url = 'http://codeial.com:8000/api/v2/posts/create';
 
     fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         Authorization: `Bearer ${localStorage.getItem('token')}`,
-
       },
-      body: getFormBody ({ content } ),
+      body: getFormBody({ content }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -59,5 +57,33 @@ export function createPost(content) {
           dispatch(addPost(data.data.post));
         }
       });
+  };
+}
+
+export function createComment(content, postId) {
+  return (dispatch) => {
+    const url = 'http://codeial.com:8000/api/v2/comments/';
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+      body: getFormBody({ content, post_id: postId }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          dispatch(addComment(data.data.comment, postId));
+        }
+      });
+  };
+}
+
+export function addComment(comment, postId) {
+  return {
+    type: ADD_COMMENT,
+    comment,
+    postId,
   };
 }

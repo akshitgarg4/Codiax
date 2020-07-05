@@ -31,3 +31,6 @@ export const REMOVE_FRIEND = 'REMOVE_FRIEND';
 
 //add posts
 export const ADD_POST = 'ADD_POST';
+
+//ADD COMMENT
+export const ADD_COMMENT = 'ADD_COMMENT';
