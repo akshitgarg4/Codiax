@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Comment from './Comment';
-import { createComment,addLike } from '../actions/posts';
+import { createComment, addLike } from '../actions/posts';
 
 class Post extends Component {
   constructor(props) {
@@ -42,10 +42,8 @@ class Post extends Component {
   render() {
     const { post, user } = this.props;
     const { comment } = this.state;
-    console.log('post', post);
-    console.log('comment', comment);
 
-    //to check whether this user has liked the posty or not
+    //to check whether this user has liked the post or not
     const isPostLikedByUser = post.likes.includes(user._id);
     return (
       <div className="post-wrapper" key={post._id}>
@@ -68,20 +66,22 @@ class Post extends Component {
           <div className="post-content">{post.content}</div>
 
           <div className="post-actions">
-            <button className="post-like no-btn" onClick={this.handlePostLike}>
+            <div className="post-like no-btn" onClick={this.handlePostLike}>
               {isPostLikedByUser ? (
                 <img
+                  style={{ width: 15, height: 15 }}
                   src="https://image.flaticon.com/icons/svg/1076/1076984.svg"
                   alt="like post"
                 />
               ) : (
                 <img
+                  style={{ width: 15, height: 15 }}
                   src="https://image.flaticon.com/icons/svg/1077/1077035.svg"
                   alt="likes-icon"
                 />
               )}
-              <span>{post.likes.length}</span>
-            </button>
+              <strong> {post.likes.length} Likes</strong>
+            </div>
 
             <div className="post-comments-icon">
               <img
@@ -102,7 +102,13 @@ class Post extends Component {
 
           <div className="post-comments-list">
             {post.comments.map((comment) => (
-              <Comment comment={comment} key={comment._id} postId={post._id} />
+              <Comment
+                comment={comment}
+                dispatch={this.props.dispatch}
+                userId={user._id}
+                key={comment._id}
+                postId={post._id}
+              />
             ))}
           </div>
         </div>

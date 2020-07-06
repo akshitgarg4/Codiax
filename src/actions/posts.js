@@ -3,6 +3,7 @@ import {
   ADD_POST,
   ADD_COMMENT,
   UPDATE_POST_LIKE,
+  UPDATE_COMMENT_LIKE,
 } from './actionTypes';
 export function fetchPosts() {
   return (dispatch) => {
@@ -110,7 +111,12 @@ export function addLike(id, likeType, userId) {
         console.log('LIKE DATA', data);
 
         if (data.success) {
-          dispatch(addLikeToStore(id, userId));
+          if (likeType === 'Post') {
+            dispatch(addLikeToStore(id, userId));
+          } else {
+            dispatch(addLikeToStore2(id, userId));
+            //console.log("comment likeddddddd" ,data);
+          }
         }
       });
   };
@@ -121,5 +127,13 @@ export function addLikeToStore(postId, userId) {
     type: UPDATE_POST_LIKE,
     postId,
     userId,
+  };
+}
+
+export function addLikeToStore2(commentId, userId) {
+  return {
+    type: UPDATE_COMMENT_LIKE,
+    commentId: commentId,
+    userId: userId,
   };
 }

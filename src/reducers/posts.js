@@ -3,6 +3,7 @@ import {
   ADD_POST,
   ADD_COMMENT,
   UPDATE_POST_LIKE,
+  UPDATE_COMMENT_LIKE,
 } from '../actions/actionTypes';
 
 export default function posts(state = [], action) {
@@ -34,7 +35,31 @@ export default function posts(state = [], action) {
 
         return post;
       });
+      console.log('this is the updation ', updatedPosts);
+
       return updatedPosts;
+    case UPDATE_COMMENT_LIKE:
+      const updatedComment = state.map((post) => {
+        //inside the post array traverse the comments array
+        const updatedComments = post.comments.map((comment) => {
+          if (comment._id === action.commentId) {
+            const comments = {
+              ...comment,
+              likes: [...comment.likes, action.userId],
+            };
+
+            return comments;
+          } else {
+            return comment;
+          }
+        });
+        return {
+          ...post,
+          comments: updatedComments,
+        };
+      });
+      //console.log('this is the updation ', updatedComment);
+      return updatedComment;
     default:
       return state;
   }
