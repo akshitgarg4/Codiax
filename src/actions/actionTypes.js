@@ -34,3 +34,6 @@ export const ADD_POST = 'ADD_POST';
 
 //ADD COMMENT
 export const ADD_COMMENT = 'ADD_COMMENT';
+
+//liking a post
+export const UPDATE_POST_LIKE = 'UPDATE_POST_LIKE';

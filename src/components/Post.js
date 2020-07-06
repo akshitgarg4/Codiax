@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Comment from './Comment';
-import { createComment } from '../actions/posts';
+import { createComment,addLike } from '../actions/posts';
 
 class Post extends Component {
   constructor(props) {
@@ -34,11 +34,19 @@ class Post extends Component {
     });
   };
 
+  handlePostLike = () => {
+    const { post, user } = this.props;
+    this.props.dispatch(addLike(post._id, 'Post', user._id));
+  };
+
   render() {
-    const { post } = this.props;
+    const { post, user } = this.props;
     const { comment } = this.state;
     console.log('post', post);
     console.log('comment', comment);
+
+    //to check whether this user has liked the posty or not
+    const isPostLikedByUser = post.likes.includes(user._id);
     return (
       <div className="post-wrapper" key={post._id}>
         <div className="post-header">
@@ -51,19 +59,29 @@ class Post extends Component {
             </Link>
             <div>
               <span className="post-author">{post.user.name}</span>
-              <span className="post-time">{`${post.createdAt.slice(0,10)}   ${post.createdAt.slice(11,19)}`}</span>
+              <span className="post-time">{`${post.createdAt.slice(
+                0,
+                10
+              )}   ${post.createdAt.slice(11, 19)}`}</span>
             </div>
           </div>
           <div className="post-content">{post.content}</div>
 
           <div className="post-actions">
-            <div className="post-like">
-              <img
-                src="https://image.flaticon.com/icons/svg/1077/1077035.svg"
-                alt="likes-icon"
-              />
+            <button className="post-like no-btn" onClick={this.handlePostLike}>
+              {isPostLikedByUser ? (
+                <img
+                  src="https://image.flaticon.com/icons/svg/1076/1076984.svg"
+                  alt="like post"
+                />
+              ) : (
+                <img
+                  src="https://image.flaticon.com/icons/svg/1077/1077035.svg"
+                  alt="likes-icon"
+                />
+              )}
               <span>{post.likes.length}</span>
-            </div>
+            </button>
 
             <div className="post-comments-icon">
               <img
@@ -96,5 +114,10 @@ class Post extends Component {
 Post.propTypes = {
   post: PropTypes.object.isRequired,
 };
+function mapStateToProps({ auth }) {
+  return {
+    user: auth.user,
+  };
+}
 
-export default connect()(Post);
+export default connect(mapStateToProps)(Post);

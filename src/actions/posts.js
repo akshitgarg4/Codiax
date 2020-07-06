@@ -1,4 +1,9 @@
-import { UPDATE_POSTS, ADD_POST, ADD_COMMENT } from './actionTypes';
+import {
+  UPDATE_POSTS,
+  ADD_POST,
+  ADD_COMMENT,
+  UPDATE_POST_LIKE,
+} from './actionTypes';
 export function fetchPosts() {
   return (dispatch) => {
     const url = 'http://codeial.com:8000/api/v2/posts?page=1&limit=25';
@@ -85,5 +90,36 @@ export function addComment(comment, postId) {
     type: ADD_COMMENT,
     comment,
     postId,
+  };
+}
+
+//linking a post
+export function addLike(id, likeType, userId) {
+  return (dispatch) => {
+    const url = `http://codeial.com:8000/api/v2/likes/toggle?likeable_id=${id}&likeable_type=${likeType}`;
+
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('LIKE DATA', data);
+
+        if (data.success) {
+          dispatch(addLikeToStore(id, userId));
+        }
+      });
+  };
+}
+
+export function addLikeToStore(postId, userId) {
+  return {
+    type: UPDATE_POST_LIKE,
+    postId,
+    userId,
   };
 }
