@@ -22,6 +22,19 @@ class UserProfile extends Component {
       this.props.dispatch(fetchUserProfile(match.params.userId));
     }
   }
+
+  componentDidUpdate(prevProps) {
+    const {
+      match: { params: prevParams },
+    } = prevProps;
+    const {
+      match: { params: currentParams },
+    } = this.props;
+    if (prevParams && currentParams && currentParams !== prevParams) {
+      this.props.dispatch(fetchUserProfile(currentParams.userId));
+    }
+  }
+
   checkIfUserIsAFriend = () => {
     const { match } = this.props;
     const { friends } = this.props;
@@ -132,7 +145,7 @@ class UserProfile extends Component {
         </div>
 
         <div className="btn-grp">
-          { !userFriend && (
+          {!userFriend && (
             <button
               className="button save-btn"
               onClick={this.handleAddFriendClick}
