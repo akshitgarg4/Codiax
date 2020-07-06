@@ -40,3 +40,7 @@ export const UPDATE_POST_LIKE = 'UPDATE_POST_LIKE';
 
 //liking a comment
 export const UPDATE_COMMENT_LIKE = 'UPDATE_COMMENT_LIKE';
+
+
+// search
+export const FETCH_SEARCH_RESULTS_SUCCESS = 'FETCH_SEARCH_RESULTS_SUCCESS';
