@@ -4,22 +4,19 @@ import { Link } from 'react-router-dom';
 import { logoutUser } from '../actions/auth';
 import { searchUsers } from '../actions/search';
 
-
 class Nav extends React.Component {
   logout = () => {
     localStorage.removeItem('token');
     this.props.dispatch(logoutUser());
   };
 
-
   handleSearch = (e) => {
     const searchText = e.target.value;
     this.props.dispatch(searchUsers(searchText));
   };
 
-
   render() {
-    const { auth,results } = this.props;
+    const { auth, results } = this.props;
     return (
       <div>
         {/*Navbar */}
@@ -27,7 +24,7 @@ class Nav extends React.Component {
           <div className="left-div">
             {/*on clicking the logo it will take to the homepage */}
             <Link to="/">
-              <span style={{ fontSize: 50, fontWeight: '80%' }}>CODIAX</span>
+              <span className="main-logo">CODIAX</span>
             </Link>
           </div>
           <div className="search-container">
@@ -39,24 +36,22 @@ class Nav extends React.Component {
             <input placeholder="Search" onChange={this.handleSearch} />
 
             {results.length > 0 && (
-            <div className="search-results">
-              <ul>
-                {results.map((user) => (
-                  <li className="search-results-row" key={user._id}>
-                    <Link to={`/user/${user._id}`}>
-                      <img
-                        src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
-                        alt="user-dp"
-                      />
-                      <span>{user.name}</span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-
+              <div className="search-results">
+                <ul>
+                  {results.map((user) => (
+                    <li className="search-results-row" key={user._id}>
+                      <Link to={`/user/${user._id}`}>
+                        <img
+                          src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
+                          alt="user-dp"
+                        />
+                        <span>{user.name}</span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
           <div className="right-nav">
             {auth.isLoggedIn && (
@@ -97,7 +92,7 @@ class Nav extends React.Component {
 function mapStateToProps(state) {
   return {
     auth: state.auth,
-    results:state.search.results,
+    results: state.search.results,
   };
 }
 
