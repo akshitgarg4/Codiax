@@ -31,7 +31,7 @@ class UserProfile extends Component {
       match: { params: currentParams },
     } = this.props;
     if (prevParams && currentParams && currentParams !== prevParams) {
-      this.props.dispatch(fetchUserProfile(currentParams.userId));
+      this.props.dispatch(fetchUserProfile(this.props.match.params.userId));
     }
   }
 
@@ -41,7 +41,7 @@ class UserProfile extends Component {
     const userId = match.params.userId;
     console.log('userId', userId);
     console.log('friends', friends);
-    const index = friends.map((friend) => friend.to_user._id).indexOf(userId);
+    const index = friends.map((friend) => friend._id).indexOf(userId);
     if (index !== -1) {
       return true;
     } else {
@@ -52,17 +52,17 @@ class UserProfile extends Component {
   handleAddFriendClick = async () => {
     const userId = this.props.match.params.userId;
     const url = `/api/v1/friendship/create_friendship?user_id=${userId}`;
+    console.log("add friend url *****",url);
 
     const options = {
-      method: 'POST',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     };
 
     const response = await fetch(url, options);
     const data = await response.json();
+    console.log("added friend response******",data);
 
     if (data.success) {
       this.setState({
@@ -70,7 +70,7 @@ class UserProfile extends Component {
         successMessage: 'Added friend successfully!',
       });
 
-      this.props.dispatch(addFriend(data.data.friendship));
+      this.props.dispatch(addFriend(data.data.friends));
     } else {
       this.setState({
         success: null,
@@ -85,9 +85,7 @@ class UserProfile extends Component {
     const url = `/api/v1/friendship/remove_friendship?user_id=${userId}`;
 
     const extra = {
-      method: 'POST',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     };
@@ -111,10 +109,8 @@ class UserProfile extends Component {
 
   render() {
     const {
-      isLoggedIn,
-      match: { params },
+      isLoggedIn
     } = this.props;
-    console.log('this.props', params);
     const user = this.props.profile.user;
     const userFriend = this.checkIfUserIsAFriend();
     const { success, error, successMessage } = this.state;

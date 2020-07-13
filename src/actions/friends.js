@@ -1,19 +1,22 @@
-import { FETCH_FRIENDS_SUCCESS ,REMOVE_FRIEND,ADD_FRIEND} from './actionTypes';
+import {
+  FETCH_FRIENDS_SUCCESS,
+  REMOVE_FRIEND,
+  ADD_FRIEND,
+} from './actionTypes';
 
 export function fetchUserFriends(userId) {
   return (dispatch) => {
     const url = `/api/v1/friendship/fetch_user_friends/${userId}`;
     fetch(url, {
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
         Authorization: `Bearer ${localStorage.getItem('token')}`,
       },
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('data', data);
         dispatch(fetchFriendsSucces(data.data.friends));
-      });
+      })
+      .catch(console.log('errrororrrrrrrrrr'));
   };
 }
 
@@ -37,4 +40,3 @@ export function removeFriend(userId) {
     userId,
   };
 }
-

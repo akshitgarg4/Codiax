@@ -44,7 +44,8 @@ class App extends React.Component {
         })
       );
       //fetch user friends list
-      this.props.dispatch(fetchUserFriends());
+      console.log("Fetching friends now *****");
+      this.props.dispatch(fetchUserFriends(user._id));
     }
   }
 
@@ -76,7 +77,7 @@ class App extends React.Component {
               component={settings}
               isLoggedIn={auth.isLoggedIn}
             />
-            <Route path="/user/:userId"  render={(props) => {
+            <Route path="/users/:userId"  render={(props) => {
                 return (
                   <UserProfile {...props} isLoggedIn={auth.isLoggedIn} />
                 );}} />

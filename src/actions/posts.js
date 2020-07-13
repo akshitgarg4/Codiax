@@ -79,10 +79,11 @@ export function createComment(content, postId) {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log("data******",data);
         if (data.success) {
           dispatch(addComment(data.data.comment, postId));
         }
-      });
+      }).catch(console.log("errrororrrrrrrrrr"));
   };
 }
 
@@ -100,7 +101,6 @@ export function addLike(id, likeType, userId) {
     const url = `/api/v1/likes/toggle?likeable_id=${id}&likeable_type=${likeType}`;
 
     fetch(url, {
-      method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -112,9 +112,9 @@ export function addLike(id, likeType, userId) {
 
         if (data.success) {
           if (likeType === 'Post') {
-            dispatch(addLikeToStore(id, userId));
+            dispatch(addLikeToStore(id, userId,data.deleted));
           } else {
-            dispatch(addLikeToStore2(id, userId));
+            dispatch(addLikeToStore2(id, userId,data.deleted));
             //console.log("comment likeddddddd" ,data);
           }
         }
@@ -122,18 +122,20 @@ export function addLike(id, likeType, userId) {
   };
 }
 
-export function addLikeToStore(postId, userId) {
+export function addLikeToStore(postId, userId,deleted) {
   return {
     type: UPDATE_POST_LIKE,
     postId,
     userId,
+    deleted
   };
 }
 
-export function addLikeToStore2(commentId, userId) {
+export function addLikeToStore2(commentId, userId,deleted) {
   return {
     type: UPDATE_COMMENT_LIKE,
     commentId: commentId,
     userId: userId,
+    deleted
   };
 }

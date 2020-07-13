@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { logoutUser } from '../actions/auth';
-import { searchUsers } from '../actions/search';
+import { searchUsers, searchResultsSuccess } from '../actions/search';
 
 class Nav extends React.Component {
   logout = () => {
@@ -12,7 +12,11 @@ class Nav extends React.Component {
 
   handleSearch = (e) => {
     const searchText = e.target.value;
-    this.props.dispatch(searchUsers(searchText));
+    if (searchText === '') {
+      this.props.dispatch(searchResultsSuccess([]));
+    } else {
+      this.props.dispatch(searchUsers(searchText));
+    }
   };
 
   render() {
@@ -40,7 +44,7 @@ class Nav extends React.Component {
                 <ul>
                   {results.map((user) => (
                     <li className="search-results-row" key={user._id}>
-                      <Link to={`/user/${user._id}`}>
+                      <Link to={`/users/${user._id}`}>
                         <img
                           src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
                           alt="user-dp"
