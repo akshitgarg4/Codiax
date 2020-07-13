@@ -7,13 +7,13 @@ import {
 } from './actionTypes';
 export function fetchPosts() {
   return (dispatch) => {
-    const url = 'http://codeial.com:8000/api/v2/posts?page=1&limit=25';
+    const url = '/api/v1/posts';
     fetch(url)
       .then((response) => {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
+        console.log('data******', data);
         dispatch(updatePosts(data.data.posts));
       });
   };
@@ -45,7 +45,7 @@ function getFormBody(params) {
 
 export function createPost(content) {
   return (dispatch) => {
-    const url = 'http://codeial.com:8000/api/v2/posts/create';
+    const url = '/api/v1/posts/create';
 
     fetch(url, {
       method: 'POST',
@@ -68,7 +68,7 @@ export function createPost(content) {
 
 export function createComment(content, postId) {
   return (dispatch) => {
-    const url = 'http://codeial.com:8000/api/v2/comments/';
+    const url = '/api/v1/comments/';
     fetch(url, {
       method: 'POST',
       headers: {
@@ -94,10 +94,10 @@ export function addComment(comment, postId) {
   };
 }
 
-//linking a post
+//liking a post
 export function addLike(id, likeType, userId) {
   return (dispatch) => {
-    const url = `http://codeial.com:8000/api/v2/likes/toggle?likeable_id=${id}&likeable_type=${likeType}`;
+    const url = `/api/v1/likes/toggle?likeable_id=${id}&likeable_type=${likeType}`;
 
     fetch(url, {
       method: 'POST',

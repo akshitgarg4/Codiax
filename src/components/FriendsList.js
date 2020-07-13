@@ -1,5 +1,5 @@
 import React from 'react';
-import FriendsListItem  from './FriendsListItem';
+import FriendsListItem from './FriendsListItem';
 
 const FriendsList = (props) => {
   return (
@@ -12,7 +12,7 @@ const FriendsList = (props) => {
 
       {props.friends &&
         props.friends.map((friend) => (
-          <FriendsListItem friend={friend.to_user} key={friend._id} />
+          <FriendsListItem friend={friend} key={friend._id} />
         ))}
     </div>
   );

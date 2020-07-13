@@ -28,7 +28,7 @@ import {
     return (dispatch) => {
       dispatch(startUserProfileFetch());
   
-      const url = `http://codeial.com:8000/api/v2/users/${userId}`;
+      const url = `/api/v1/users/${userId}`;
       fetch(url, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',

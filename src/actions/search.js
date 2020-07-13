@@ -3,7 +3,7 @@ import { FETCH_SEARCH_RESULTS_SUCCESS } from './actionTypes';
 
 export function searchUsers(searchText) {
   return (dispatch) => {
-    const url = `http://codeial.com:8000/api/v2/users/search?text=${searchText}`;
+    const url = `/api/v1/users/search?text=${searchText}`;
 
     fetch(url, {
         headers: {

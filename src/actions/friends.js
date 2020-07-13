@@ -2,7 +2,7 @@ import { FETCH_FRIENDS_SUCCESS ,REMOVE_FRIEND,ADD_FRIEND} from './actionTypes';
 
 export function fetchUserFriends(userId) {
   return (dispatch) => {
-    const url = `http://codeial.com:8000/api/v2/friendship/fetch_user_friends/${userId}`;
+    const url = `/api/v1/friendship/fetch_user_friends/${userId}`;
     fetch(url, {
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',

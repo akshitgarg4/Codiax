@@ -51,7 +51,7 @@ class UserProfile extends Component {
 
   handleAddFriendClick = async () => {
     const userId = this.props.match.params.userId;
-    const url = `http://codeial.com:8000/api/v2/friendship/create_friendship?user_id=${userId}`;
+    const url = `/api/v1/friendship/create_friendship?user_id=${userId}`;
 
     const options = {
       method: 'POST',
@@ -82,7 +82,7 @@ class UserProfile extends Component {
   handleRemoveFriendClick = async () => {
     const { match } = this.props;
     const userId = this.props.match.params.userId;
-    const url = `http://codeial.com:8000/api/v2/friendship/remove_friendship?user_id=${userId}`;
+    const url = `/api/v1/friendship/remove_friendship?user_id=${userId}`;
 
     const extra = {
       method: 'POST',

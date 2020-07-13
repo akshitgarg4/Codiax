@@ -46,7 +46,7 @@ function getFormBody(params) {
 export function login(email, password) {
   return (dispatch) => {
     dispatch(startLogin());
-    const url = 'http://codeial.com:8000/api/v2/users/login';
+    const url = '/api/v1/users/login';
     fetch(url, {
       method: 'POST',
       headers: {
@@ -89,7 +89,7 @@ export function signupSuccess(user) {
 export function signup(email, password, confirmpassword, name) {
   return (dispatch) => {
     dispatch(startsignup());
-    const url = 'http://codeial.com:8000/api/v2/users/signup';
+    const url = '/api/v1/users/signup';
     fetch(url, {
       method: 'POST',
       headers: {
@@ -152,7 +152,7 @@ export function editUserFailed(error) {
 
 export function editUser(name, password, confirmPassword, userId) {
   return (dispatch) => {
-    const url = 'http://codeial.com:8000/api/v2/users/edit';
+    const url = '/api/v1/users/edit';
 
     fetch(url, {
       method: 'POST',
