@@ -46,7 +46,7 @@ class Nav extends React.Component {
                     <li className="search-results-row" key={user._id}>
                       <Link to={`/users/${user._id}`}>
                         <img
-                          src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
+                          src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSH4dcYWVFHFsz8M3Rsjpy2Hg6gQAmgbCIwWA&usqp=CAU"
                           alt="user-dp"
                         />
                         <span>{user.name}</span>
@@ -62,7 +62,7 @@ class Nav extends React.Component {
               <div className="user">
                 <Link to="/settings">
                   <img
-                    src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSH4dcYWVFHFsz8M3Rsjpy2Hg6gQAmgbCIwWA&usqp=CAU"
                     alt="user-dp"
                     id="user-dp"
                   />

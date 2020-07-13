@@ -35,7 +35,6 @@ class App extends React.Component {
 
     if (token) {
       const user = jwtDecode(token);
-      //console.log('user', user);
       this.props.dispatch(
         authenticateUser({
           email: user.email,
@@ -44,14 +43,12 @@ class App extends React.Component {
         })
       );
       //fetch user friends list
-      console.log("Fetching friends now *****");
       this.props.dispatch(fetchUserFriends(user._id));
     }
   }
 
   render() {
     const { posts, auth,friends } = this.props;
-    console.log(this.props);
 
     return (
       <Router>

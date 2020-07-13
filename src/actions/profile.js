@@ -29,7 +29,6 @@ import {
       dispatch(startUserProfileFetch());
   
       const url = `/api/v1/users/${userId}`;
-      console.log("url******",url);
       fetch(url, {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -37,7 +36,6 @@ import {
         },
       }).then((response) => response.json())
         .then((data) => {
-          console.log("data*********",data);
           dispatch(userProfileSuccess(data.data.user));
         }).catch(console.log("errrororrrrrrrrrr"));
     };

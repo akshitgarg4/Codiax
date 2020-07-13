@@ -36,7 +36,7 @@ class Settings extends Component {
       <div className="settings">
         <div className="img-container">
           <img
-            src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSH4dcYWVFHFsz8M3Rsjpy2Hg6gQAmgbCIwWA&usqp=CAU"
             alt="user-dp"
           />
         </div>

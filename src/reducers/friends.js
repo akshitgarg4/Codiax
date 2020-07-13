@@ -12,7 +12,7 @@ export default function friends(state = defaultProfileState, action) {
     case FETCH_FRIENDS_SUCCESS:
       return [...action.friends];
     case ADD_FRIEND:
-      return state.concat(action.friend);
+      return action.friend;
     case REMOVE_FRIEND:
       const newArr = state.filter(
         (friend) => friend._id !== action.userId

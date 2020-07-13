@@ -39,8 +39,6 @@ class UserProfile extends Component {
     const { match } = this.props;
     const { friends } = this.props;
     const userId = match.params.userId;
-    console.log('userId', userId);
-    console.log('friends', friends);
     const index = friends.map((friend) => friend._id).indexOf(userId);
     if (index !== -1) {
       return true;
@@ -52,7 +50,6 @@ class UserProfile extends Component {
   handleAddFriendClick = async () => {
     const userId = this.props.match.params.userId;
     const url = `/api/v1/friendship/create_friendship?user_id=${userId}`;
-    console.log("add friend url *****",url);
 
     const options = {
       headers: {
@@ -62,15 +59,14 @@ class UserProfile extends Component {
 
     const response = await fetch(url, options);
     const data = await response.json();
-    console.log("added friend response******",data);
 
     if (data.success) {
       this.setState({
         success: true,
-        successMessage: 'Added friend successfully!',
+        successMessage: 'Friend Added Successfully!',
       });
 
-      this.props.dispatch(addFriend(data.data.friends));
+      this.props.dispatch(addFriend(data.data.friends.friends));
     } else {
       this.setState({
         success: null,
@@ -96,7 +92,7 @@ class UserProfile extends Component {
     if (data.success) {
       this.setState({
         success: true,
-        successMessage: 'Removed friends successfully!',
+        successMessage: 'Friend Removed Successfully!',
       });
       this.props.dispatch(removeFriend(match.params.userId));
     } else {
@@ -108,9 +104,7 @@ class UserProfile extends Component {
   };
 
   render() {
-    const {
-      isLoggedIn
-    } = this.props;
+    const { isLoggedIn } = this.props;
     const user = this.props.profile.user;
     const userFriend = this.checkIfUserIsAFriend();
     const { success, error, successMessage } = this.state;
@@ -125,7 +119,7 @@ class UserProfile extends Component {
       <div className="settings">
         <div className="img-container">
           <img
-            src="https://image.flaticon.com/icons/svg/2154/2154651.svg"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSH4dcYWVFHFsz8M3Rsjpy2Hg6gQAmgbCIwWA&usqp=CAU"
             alt="user-dp"
           />
         </div>

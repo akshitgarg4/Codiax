@@ -18,7 +18,6 @@ class Login extends Component {
 
   handleSubmitForm = (e) => {
     e.preventDefault();
-    console.log(this.state);
     const { email, password } = this.state;
     if (email && password) {
       this.props.dispatch(login(email, password));

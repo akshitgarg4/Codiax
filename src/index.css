@@ -55,6 +55,7 @@ a {
   border-radius: 4px;
   margin-top: 20px;
   background: #fff;
+  box-shadow: 0 0 1px 1px grey;
 }
 .post-header {
   padding: 10px 10px;
@@ -477,6 +478,7 @@ nav .nav-links ul li:hover {
 }
 /* CREATEPOST */
 .create-post {
+  box-shadow: 0 0 1px 1px grey;
   background: white;
   border: 1px solid #e0e0e0;
   box-sizing: border-box;

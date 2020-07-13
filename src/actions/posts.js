@@ -13,7 +13,6 @@ export function fetchPosts() {
         return response.json();
       })
       .then((data) => {
-        console.log('data******', data);
         dispatch(updatePosts(data.data.posts));
       });
   };
@@ -57,7 +56,6 @@ export function createPost(content) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('dATA', data);
 
         if (data.success) {
           dispatch(addPost(data.data.post));
@@ -79,7 +77,6 @@ export function createComment(content, postId) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("data******",data);
         if (data.success) {
           dispatch(addComment(data.data.comment, postId));
         }
@@ -108,7 +105,6 @@ export function addLike(id, likeType, userId) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('LIKE DATA', data);
 
         if (data.success) {
           if (likeType === 'Post') {

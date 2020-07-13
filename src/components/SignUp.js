@@ -20,7 +20,6 @@ class Signup extends Component {
   }
   handleSubmitForm = (e) => {
     e.preventDefault();
-    console.log(this.state);
     const { email, password, confirmPassword, name } = this.state;
     if (email && confirmPassword && name && password) {
       this.props.dispatch(signup(email, password, confirmPassword, name));
