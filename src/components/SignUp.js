@@ -52,7 +52,7 @@ class Signup extends Component {
     }
     return (
       <form className="login-form">
-        <span className="login-signup-header">Log In</span>
+        <span className="login-signup-header">SIGN UP</span>
         {error && <div className="alert error-dailog">{error}</div>}
         <div className="field">
           <input
