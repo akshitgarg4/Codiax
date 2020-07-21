@@ -20,20 +20,20 @@ In order to run the Codiax Project you need to clone the Codiax-Backend reposito
 <ul>
   <li> SignUp/Login to create your account. </li>
   
-  <img src="SS/Login.png" width="640" height="340">
+  <img src="SS/Login.png">
   
   <li> Add / Remove friends from your Friends List. </li>
   
-  <img src="SS/Friend.png"  width="640" height="340">
+  <img src="SS/Friend.png">
   
   <li> Search for your friends from all the User's available. </li>
   
-  <img src="SS/Search.png"  width="640" height="340">
+  <img src="SS/Search.png">
   
   <li>Edit your Profile</li>
   
-  <img src="SS/Profile.png"  width="640" height="340">
+  <img src="SS/Profile.png" >
   
   <li>Post or Like/Comment on other's Posts.</li>
   
-  <img src="SS/Posts.png"  width="640" height="340">
+  <img src="SS/Posts.png"  >
